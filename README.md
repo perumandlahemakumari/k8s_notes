@@ -36,6 +36,28 @@ kubectl create secret docker-registry regcred   --docker-server=https://index.do
 
 ---
 
+## 📄 Installing Kops & Kubectl
+
+**`kops.sh`**
+```sh
+curl -LO "https://dl.k8s.io/release/$(curl -L -shttps://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+wget https://github.com/kubernetes/kops/releases/download/v1.24.1/kops-linux-amd64
+chmod +x kops-linux-amd64 kubectl
+mv kubectl /usr/local/bin/kubectl
+mv kops-linux-amd64 /usr/local/bin/kops
+sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+sudo curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+
+sudo echo "$(cat kubectl.sha256) kubectl" | sha256sum --check
+
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+kubectl version
+kops version
+```
+
+---
+
 ## 📄 Persistent Volume (PV) & Persistent Volume Claim (PVC)
 
 **`pv.yml`**
